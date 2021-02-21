@@ -10,6 +10,19 @@
       "StackName": "amplify-coinflip-dev-111200",
       "StackId": "arn:aws:cloudformation:us-east-2:415985486267:stack/amplify-coinflip-dev-111200/8970fa90-745f-11eb-aa54-024630c32df4",
       "AmplifyAppId": "dvljsv10crsxe"
+    },
+    "categories": {
+      "auth": {
+        "coinflip45a60d1f": {
+          "googleClientId": "98429795133-l8gae4oatmb7r9thq5o5ceot10up1cc6.apps.googleusercontent.com"
+        }
+      },
+      "function": {
+        "coinflip45a60d1fPostConfirmation": {
+          "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
+          "s3Key": "amplify-builds/coinflip45a60d1fPostConfirmation-63613659614249696a42-build.zip"
+        }
+      }
     }
   }
 }
