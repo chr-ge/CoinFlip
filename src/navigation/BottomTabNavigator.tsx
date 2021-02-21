@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Entypo, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import { BottomTabParamList } from '../../types';
 
 // Screens
@@ -16,12 +15,10 @@ import ProfileScreen from '../screens/Profile';
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={{ activeTintColor: Colors['dark'].tint }}>
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
