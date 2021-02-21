@@ -9,16 +9,21 @@ const image = require('../../../assets/images/Saly-17.png')
 
 const MarketScreen = () => {
   const [coins, setCoins] = useState([])
+  const [loading, setLoading] = useState(false)
   
-  useEffect(() => {
-    const fetchCoins = async () => {
-      try {
-        const res: any = await API.graphql(graphqlOperation(listCoins))
-        setCoins(res.data.listCoins.items)
-      } catch (err) {
-        console.log(err)
-      }
+  const fetchCoins = async () => {
+    setLoading(true)
+    try {
+      const res: any = await API.graphql(graphqlOperation(listCoins))
+      setCoins(res.data.listCoins.items)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  useEffect(() => {
     fetchCoins()
   }, [])
 
@@ -35,6 +40,8 @@ const MarketScreen = () => {
             valueChange1H={item.valueChange1H}
           />
         )}
+        onRefresh={fetchCoins}
+        refreshing={loading}
         style={{ width: '100%' }}
         ListHeaderComponentStyle={{ alignItems: 'center' }}
         ListHeaderComponent={() => (
