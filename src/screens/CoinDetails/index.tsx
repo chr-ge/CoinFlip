@@ -3,6 +3,7 @@ import { Image, Pressable, Text, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import styles from './styles'
 import PercentageChange from '../../components/PercentageChange'
+import CoinPriceGraph from '../../components/CoinPriceGraph'
 
 const CoinDetailsScreen = () => {
   const [coinData, setCoinData] = useState({
@@ -52,11 +53,11 @@ const CoinDetailsScreen = () => {
           </View>
         </View>
       </View>
+      <CoinPriceGraph priceHistory={coinData.priceHistory} />
       <View style={styles.row}>
         <Text style={styles.position}>Position</Text>
         <Text style={styles.position}>
-          {coinData.symbol} {coinData.amount} ($
-          {coinData.amount * coinData.currentPrice})
+          {coinData.symbol} {coinData.amount} (${coinData.amount * coinData.currentPrice})
         </Text>
       </View>
       <View style={[styles.row, { marginTop: 'auto' }]}>
