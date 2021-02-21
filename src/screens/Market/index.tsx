@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, Text, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import { API, graphqlOperation } from 'aws-amplify'
+import { listCoins } from '../../graphql/queries'
 import MarketCoin from '../../components/MarketCoin'
 import styles from './styles'
 const image = require('../../../assets/images/Saly-17.png')
 
-const COINS = [
-  { id: 1, name: 'Virtual USD', image: '', symbol: 'VUSD', valueChange1H: -1.232, valueUSD: 1000 },
-  { id: 2, name: 'Bitcoin', image: '', symbol: 'BTC', valueChange1H: 1.56, valueUSD: 65464 },
-]
-
 const MarketScreen = () => {
+  const [coins, setCoins] = useState([])
+  
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const res: any = await API.graphql(graphqlOperation(listCoins))
+        setCoins(res.data.listCoins.items)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchCoins()
+  }, [])
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={COINS}
-        renderItem={({ item }) => (
+        data={coins}
+        renderItem={({ item }: any) => (
           <MarketCoin
             name={item.name}
             image={item.image}
             symbol={item.symbol}
-            valueUSD={item.valueUSD}
+            currentPrice={item.currentPrice}
             valueChange1H={item.valueChange1H}
           />
         )}

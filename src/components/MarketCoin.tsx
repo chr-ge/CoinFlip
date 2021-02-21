@@ -7,11 +7,11 @@ interface IMarketCoinProps {
   image: string
   name: string
   symbol: string
-  valueUSD: number
+  currentPrice: number
   valueChange1H: number
 }
 
-const MarketCoin = ({ image, name, symbol, valueChange1H, valueUSD }: IMarketCoinProps) => {
+const MarketCoin = ({ image, name, symbol, valueChange1H, currentPrice }: IMarketCoinProps) => {
   const navigation = useNavigation()
 
   return (
@@ -22,7 +22,7 @@ const MarketCoin = ({ image, name, symbol, valueChange1H, valueUSD }: IMarketCoi
         <Text style={styles.symbol}>{symbol}</Text>
       </View>
       <View style={styles.valueContainer}>
-        <Text style={styles.valueUSD}>${valueUSD}</Text>
+        <Text style={styles.valueUSD}>${currentPrice}</Text>
         <PercentageChange value={valueChange1H} />
       </View>
     </Pressable>

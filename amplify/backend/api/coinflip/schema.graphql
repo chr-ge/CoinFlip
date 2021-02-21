@@ -5,7 +5,7 @@ type User @model(mutations: null) {
   image: String
   networth: Float!
   
-  portfolioCoins: [PortfolioCoin!] @connection(name: "byUser", fields: ["id"])
+  portfolioCoins: [PortfolioCoin!] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type PortfolioCoin 

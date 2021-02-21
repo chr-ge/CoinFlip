@@ -20,7 +20,7 @@
       "function": {
         "coinflip45a60d1fPostConfirmation": {
           "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
-          "s3Key": "amplify-builds/coinflip45a60d1fPostConfirmation-2b635070312b474f765a-build.zip"
+          "s3Key": "amplify-builds/coinflip45a60d1fPostConfirmation-5a78794c74456c364668-build.zip"
         }
       }
     }
