@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-coinflip-dev-111200-authRole",
+      "UnauthRoleArn": "arn:aws:iam::415985486267:role/amplify-coinflip-dev-111200-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::415985486267:role/amplify-coinflip-dev-111200-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-coinflip-dev-111200-deployment",
+      "UnauthRoleName": "amplify-coinflip-dev-111200-unauthRole",
+      "StackName": "amplify-coinflip-dev-111200",
+      "StackId": "arn:aws:cloudformation:us-east-2:415985486267:stack/amplify-coinflip-dev-111200/8970fa90-745f-11eb-aa54-024630c32df4",
+      "AmplifyAppId": "dvljsv10crsxe"
+    }
+  }
+}
