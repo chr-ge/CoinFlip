@@ -7,21 +7,21 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   image: {
-   height: '40%',
-   aspectRatio: 1
+    height: '40%',
+    aspectRatio: 1,
   },
   heading: {
-   fontSize: 30,
-   color: 'white',
-   fontWeight: 'bold',
-   marginTop: 50,
-   marginBottom: 20
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginBottom: 20,
   },
   subheading: {
     fontSize: 20,
     color: '#909090',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 })
 
 export default styles

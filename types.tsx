@@ -2,6 +2,7 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   CoinDetails: undefined;
+  CoinExchange: { isBuy: boolean, coinData: any };
 };
 
 export type BottomTabParamList = {

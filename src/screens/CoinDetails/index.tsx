@@ -4,8 +4,10 @@ import { AntDesign } from '@expo/vector-icons'
 import styles from './styles'
 import PercentageChange from '../../components/PercentageChange'
 import CoinPriceGraph from '../../components/CoinPriceGraph'
+import { useNavigation } from '@react-navigation/native'
 
 const CoinDetailsScreen = () => {
+  const navigation = useNavigation()
   const [coinData, setCoinData] = useState({
     id: 1,
     image:
@@ -19,9 +21,13 @@ const CoinDetailsScreen = () => {
     amount: 1.5,
   })
 
-  const onBuy = async () => {}
+  const onBuy = () => {
+    navigation.navigate('CoinExchange', { isBuy: true, coinData })
+  }
 
-  const onSell = async () => {}
+  const onSell = () => {
+    navigation.navigate('CoinExchange', { isBuy: false, coinData })
+  }
 
   return (
     <View style={styles.container}>
@@ -53,7 +59,7 @@ const CoinDetailsScreen = () => {
           </View>
         </View>
       </View>
-      <CoinPriceGraph priceHistory={coinData.priceHistory} />
+      {/* <CoinPriceGraph priceHistory={coinData.priceHistory} /> */}
       <View style={styles.row}>
         <Text style={styles.position}>Position</Text>
         <Text style={styles.position}>
@@ -62,13 +68,13 @@ const CoinDetailsScreen = () => {
       </View>
       <View style={[styles.row, { marginTop: 'auto' }]}>
         <Pressable
-          onPress={onBuy}
+          onPress={onSell}
           style={[styles.button, { backgroundColor: '#FF0000', marginRight: 5 }]}
         >
           <Text style={styles.buttonText}>Sell</Text>
         </Pressable>
         <Pressable
-          onPress={onSell}
+          onPress={onBuy}
           style={[styles.button, { backgroundColor: '#20B100', marginLeft: 5 }]}
         >
           <Text style={styles.buttonText}>Buy</Text>
