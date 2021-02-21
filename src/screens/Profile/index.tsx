@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Image, Text, Pressable, View } from 'react-native'
+import { Auth } from 'aws-amplify'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import styles from './styles'
 const image = require('../../../assets/images/Saly-16.png')
 
 const ProfileScreen = () => {
+  const navigation = useNavigation()
   const [user, setUser] = useState({
     id: '1',
     name: 'George',
@@ -12,7 +15,15 @@ const ProfileScreen = () => {
     netWorth: 100000,
   })
 
-  const signOut = async () => {}
+  const signOut = async () => {
+    await Auth.signOut()
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      })
+    )
+  }
 
   return (
     <View style={styles.container}>
