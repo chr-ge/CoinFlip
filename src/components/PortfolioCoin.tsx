@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Image, Text, View } from 'react-native'
+import { StyleSheet, Image, Text, View, Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 interface IPortfolioCoinProps {
   image: string
@@ -9,21 +10,25 @@ interface IPortfolioCoinProps {
   valueUSD: number
 }
 
-const PortfolioCoin = ({ image, name, symbol, amount, valueUSD }: IPortfolioCoinProps) => (
-  <View style={styles.container}>
-    <Image style={styles.image} source={{ uri: image }} />
-    <View style={styles.nameContainer}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.symbol}>{symbol}</Text>
-    </View>
-    <View style={styles.valueContainer}>
-      <Text style={styles.valueUSD}>${valueUSD}</Text>
-      <Text style={styles.amount}>
-        {symbol} {amount}
-      </Text>
-    </View>
-  </View>
-)
+const PortfolioCoin = ({ image, name, symbol, amount, valueUSD }: IPortfolioCoinProps) => {
+  const navigation = useNavigation()
+
+  return (
+    <Pressable onPress={() => navigation.navigate('CoinDetails')} style={styles.container}>
+      <Image style={styles.image} source={{ uri: image }} />
+      <View style={styles.nameContainer}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.symbol}>{symbol}</Text>
+      </View>
+      <View style={styles.valueContainer}>
+        <Text style={styles.valueUSD}>${valueUSD}</Text>
+        <Text style={styles.amount}>
+          {symbol} {amount}
+        </Text>
+      </View>
+    </Pressable>
+  )
+}
 
 export default PortfolioCoin
 
