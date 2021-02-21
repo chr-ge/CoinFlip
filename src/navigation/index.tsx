@@ -13,6 +13,7 @@ import BottomTabNavigator from './BottomTabNavigator'
 import LinkingConfiguration from './LinkingConfiguration'
 import CoinDetailsScreen from '../screens/CoinDetails'
 import CoinExchangeScreen from '../screens/CoinExchange'
+import WelcomeScreen from '../screens/Welcome'
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -38,6 +39,7 @@ const Stack = createStackNavigator<RootStackParamList>()
 function RootNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name='Welcome' component={WelcomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Root' component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name='CoinDetails' component={CoinDetailsScreen} options={{ title: 'Price Data' }} />
       <Stack.Screen name='CoinExchange' component={CoinExchangeScreen} options={{ title: 'Coin Exchange' }} />
