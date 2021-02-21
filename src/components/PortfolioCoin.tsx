@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, View, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 interface IPortfolioCoinProps {
+  id: string
   image: string
   name: string
   symbol: string
@@ -10,11 +11,11 @@ interface IPortfolioCoinProps {
   valueUSD: number
 }
 
-const PortfolioCoin = ({ image, name, symbol, amount, valueUSD }: IPortfolioCoinProps) => {
+const PortfolioCoin = ({ id, image, name, symbol, amount, valueUSD }: IPortfolioCoinProps) => {
   const navigation = useNavigation()
 
   return (
-    <Pressable onPress={() => navigation.navigate('CoinDetails')} style={styles.container}>
+    <Pressable onPress={() => navigation.navigate('CoinDetails', { id })} style={styles.container}>
       <Image style={styles.image} source={{ uri: image }} />
       <View style={styles.nameContainer}>
         <Text style={styles.name}>{name}</Text>

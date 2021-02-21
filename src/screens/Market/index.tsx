@@ -33,6 +33,7 @@ const MarketScreen = () => {
         data={coins}
         renderItem={({ item }: any) => (
           <MarketCoin
+            id={item.id}
             name={item.name}
             image={item.image}
             symbol={item.symbol}

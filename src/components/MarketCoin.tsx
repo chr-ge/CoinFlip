@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import PercentageChange from './PercentageChange'
 
 interface IMarketCoinProps {
+  id: string
   image: string
   name: string
   symbol: string
@@ -11,11 +12,11 @@ interface IMarketCoinProps {
   valueChange1H: number
 }
 
-const MarketCoin = ({ image, name, symbol, valueChange1H, currentPrice }: IMarketCoinProps) => {
+const MarketCoin = ({ id, image, name, symbol, valueChange1H, currentPrice }: IMarketCoinProps) => {
   const navigation = useNavigation()
 
   return (
-    <Pressable onPress={() => navigation.navigate('CoinDetails')} style={styles.container}>
+    <Pressable onPress={() => navigation.navigate('CoinDetails', { id })} style={styles.container}>
       <Image style={styles.image} source={{ uri: image }} />
       <View style={styles.nameContainer}>
         <Text style={styles.name}>{name}</Text>

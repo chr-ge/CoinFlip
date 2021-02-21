@@ -2,7 +2,7 @@ export type RootStackParamList = {
   Welcome: undefined
   Root: undefined
   NotFound: undefined
-  CoinDetails: undefined
+  CoinDetails: { id: string }
   CoinExchange: { isBuy: boolean; coinData: any }
 }
 

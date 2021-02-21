@@ -5,11 +5,6 @@ import PortfolioCoin from '../../components/PortfolioCoin'
 import styles from './styles'
 const image = require('../../../assets/images/Saly-10.png')
 
-const COINS = [
-  { id: 1, name: 'Virtual USD', image: '', symbol: 'VUSD', amount: 1000, valueUSD: 1000 },
-  { id: 2, name: 'Bitcoin', image: '', symbol: 'BTC', amount: 1, valueUSD: 65464 },
-]
-
 const PortfolioScreen = () => {
   return (
     <View style={styles.container}>
@@ -17,6 +12,7 @@ const PortfolioScreen = () => {
         data={COINS}
         renderItem={({ item }) => (
           <PortfolioCoin
+            id={item.id}
             name={item.name}
             image={item.image}
             symbol={item.symbol}

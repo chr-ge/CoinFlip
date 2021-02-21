@@ -1,71 +1,101 @@
-import React, { useState } from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Image, Pressable, Text, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
-import styles from './styles'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { API, graphqlOperation } from 'aws-amplify'
+import { getCoin, listPortfolioCoins } from '../../graphql/queries'
 import PercentageChange from '../../components/PercentageChange'
 import CoinPriceGraph from '../../components/CoinPriceGraph'
-import { useNavigation } from '@react-navigation/native'
+import { RootStackParamList } from '../../../types'
+import styles from './styles'
+import { useAppContext } from '../../contexts/AppContext'
 
 const CoinDetailsScreen = () => {
   const navigation = useNavigation()
-  const [coinData, setCoinData] = useState({
-    id: 1,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    currentPrice: 59213,
-    valueChange1H: 1.236,
-    valueChange1D: 2.654,
-    valueChange7D: 3.289,
-    amount: 1.5,
-  })
+  const { params } = useRoute<RouteProp<RootStackParamList, 'CoinDetails'>>()
+  const [coin, setCoin] = useState<any | null>(null)
+  const [portfolioCoin, setPortfolioCoin] = useState<any | null>(null)
+  const { userId } = useAppContext()
+
+  const fetchCoinData = async () => {
+    try {
+      const res: any = await API.graphql(graphqlOperation(getCoin, { id: params.id }))
+      setCoin(res.data.getCoin)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
+  const fetchPortfolioCoinData = async () => {
+    try {
+      const res: any = await API.graphql(graphqlOperation(listPortfolioCoins, { 
+        filter: {
+          and: {
+            coinId: { eq: params.id },
+            userId: { eq: userId }
+          }
+        }
+      }))
+      setPortfolioCoin(res.data.listPortfolioCoins.items[0])
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchCoinData()
+    fetchPortfolioCoinData()
+  }, [])
 
   const onBuy = () => {
-    navigation.navigate('CoinExchange', { isBuy: true, coinData })
+    navigation.navigate('CoinExchange', { isBuy: true, coin })
   }
 
   const onSell = () => {
-    navigation.navigate('CoinExchange', { isBuy: false, coinData })
+    navigation.navigate('CoinExchange', { isBuy: false, coin })
   }
+
+  if (!coin) return <ActivityIndicator style={{ marginTop: 20 }} />
 
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Image style={styles.image} source={{ uri: coinData.image }} />
+        <Image style={styles.image} source={{ uri: coin.image }} />
         <View style={styles.topTextContainer}>
-          <Text style={styles.name}>{coinData.name}</Text>
-          <Text style={styles.symbol}>{coinData.symbol}</Text>
+          <Text style={styles.name}>{coin.name}</Text>
+          <Text style={styles.symbol}>{coin.symbol}</Text>
         </View>
         <AntDesign name='star' color='#56DCBA' size={30} />
       </View>
       <View style={styles.row}>
         <View>
           <Text style={styles.currentPrice}>Current Price</Text>
-          <Text style={styles.currentPriceValue}>${coinData.currentPrice}</Text>
+          <Text style={styles.currentPriceValue}>${coin.currentPrice}</Text>
         </View>
         <View style={styles.valueChangeContainer}>
           <View>
             <Text style={styles.valueLabel}>1H</Text>
-            <PercentageChange value={coinData.valueChange1H} />
+            <PercentageChange value={coin.valueChange1H} />
           </View>
           <View>
             <Text style={styles.valueLabel}>1D</Text>
-            <PercentageChange value={coinData.valueChange1D} />
+            <PercentageChange value={coin.valueChange1D} />
           </View>
           <View>
             <Text style={styles.valueLabel}>7D</Text>
-            <PercentageChange value={coinData.valueChange7D} />
+            <PercentageChange value={coin.valueChange7D} />
           </View>
         </View>
       </View>
-      {/* <CoinPriceGraph priceHistory={coinData.priceHistory} /> */}
-      <View style={styles.row}>
-        <Text style={styles.position}>Position</Text>
-        <Text style={styles.position}>
-          {coinData.symbol} {coinData.amount} (${coinData.amount * coinData.currentPrice})
-        </Text>
-      </View>
+      {coin.priceHistory && <CoinPriceGraph priceHistory={coin.priceHistory} />}
+      {portfolioCoin && (
+        <View style={styles.row}>
+          <Text style={styles.position}>Position</Text>
+          <Text style={styles.position}>
+            {coin.symbol} {portfolioCoin.amount} (${portfolioCoin.amount * coin.currentPrice})
+          </Text>
+        </View>
+      )}
       <View style={[styles.row, { marginTop: 'auto' }]}>
         <Pressable
           onPress={onSell}
