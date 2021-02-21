@@ -1,28 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React, { useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Amplify from 'aws-amplify'
 
-import useCachedResources from './src/hooks/useCachedResources';
-import useColorScheme from './src/hooks/useColorScheme';
-import Navigation from './src/navigation';
+import useCachedResources from './src/hooks/useCachedResources'
+import Navigation from './src/navigation'
 // @ts-ignore
 import config from './src/aws-exports'
+import { AppContext } from './src/contexts/AppContext'
 
 Amplify.configure(config)
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+  const [userId, setUserId] = useState(null)
+  const isLoadingComplete = useCachedResources()
 
   if (!isLoadingComplete) {
-    return null;
+    return null
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
+      <AppContext.Provider value={{ userId, setUserId }}>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+        </SafeAreaProvider>
+      </AppContext.Provider>
+    )
   }
 }

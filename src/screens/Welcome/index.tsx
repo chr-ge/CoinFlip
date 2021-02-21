@@ -3,13 +3,14 @@ import { Image, Text, View, Pressable } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { Auth, Hub } from 'aws-amplify'
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib/types'
-import styles from './styles'
 import { CommonActions, useNavigation } from '@react-navigation/native'
-
+import { useAppContext } from '../../contexts/AppContext'
+import styles from './styles'
 const image = require('../../../assets/images/Saly-1.png')
 
 const WelcomeScreen = () => {
   const navigation = useNavigation()
+  const { setUserId } = useAppContext()
 
   const federatedSignIn = async (provider: CognitoHostedUIIdentityProvider) => {
     try {
@@ -23,6 +24,7 @@ const WelcomeScreen = () => {
     const fetch = async () => {
       const user = await Auth.currentAuthenticatedUser()
       if (user) {
+        setUserId(user.attributes.sub)
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
@@ -33,8 +35,9 @@ const WelcomeScreen = () => {
     }
     fetch()
 
-    Hub.listen('auth', ({ payload: { event } }) => {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
       if (event === 'signIn') {
+        setUserId(data.signInUserSession.accessToken.payload.sub)
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
