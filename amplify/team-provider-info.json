@@ -25,6 +25,10 @@
         "ExchangeCoins": {
           "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
           "s3Key": "amplify-builds/ExchangeCoins-354c78485773504c3364-build.zip"
+        },
+        "FetchCoinPrices": {
+          "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
+          "s3Key": "amplify-builds/FetchCoinPrices-59545849344135556875-build.zip"
         }
       }
     }
