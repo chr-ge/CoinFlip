@@ -7,15 +7,15 @@ exports.handler = async (event, context) => {
     return context.done(null, event)
   }
 
-  const data = new Date()
+  const date = new Date()
 
   const UserItem = {
     id: { S: event.request.userAttributes.sub },
     __typename: { S: 'User' },
     email: { S: event.request.userAttributes.email },
     networth: { N: '100000' },
-    createdAt: { S: data.toISOString() },
-    updatedAt: { S: data.toISOString() },
+    createdAt: { S: date.toISOString() },
+    updatedAt: { S: date.toISOString() },
   }
 
   if (event.request.userAttributes.name) {
@@ -39,8 +39,8 @@ exports.handler = async (event, context) => {
     amount: { N: '100000' },
     userId: { S: event.request.userAttributes.sub },
     coinId: { S: process.env.USD_COIN_ID },
-    createdAt: { S: data.toISOString() },
-    updatedAt: { S: data.toISOString() },
+    createdAt: { S: date.toISOString() },
+    updatedAt: { S: date.toISOString() },
   }
 
   try {
