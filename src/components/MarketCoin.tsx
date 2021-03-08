@@ -23,7 +23,7 @@ const MarketCoin = ({ id, image, name, symbol, valueChange1H, currentPrice }: IM
         <Text style={styles.symbol}>{symbol}</Text>
       </View>
       <View style={styles.valueContainer}>
-        <Text style={styles.valueUSD}>${currentPrice}</Text>
+        <Text style={styles.valueUSD}>${currentPrice.toFixed(3)}</Text>
         <PercentageChange value={valueChange1H} />
       </View>
     </Pressable>

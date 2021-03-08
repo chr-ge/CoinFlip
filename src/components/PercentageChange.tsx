@@ -8,7 +8,7 @@ interface IPercentageChangeProps {
 
 const PercentageChange = ({ value, style = {} }: IPercentageChangeProps) => (
   <Text style={[style, { color: value > 0 ? '#398F0A' : '#F10000' }]}>
-    {value > 0 && '+'}{value}
+    {value > 0 && '+'}{value.toFixed(3)}
   </Text>
 )
 

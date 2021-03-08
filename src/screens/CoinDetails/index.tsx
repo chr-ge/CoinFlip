@@ -19,23 +19,27 @@ const CoinDetailsScreen = () => {
 
   const fetchCoinData = async () => {
     try {
-      const res: any = await API.graphql(graphqlOperation(getCoin, { id: params.id }))
+      const res: any = await API.graphql(
+        graphqlOperation(getCoin, { id: params.id })
+      )
       setCoin(res.data.getCoin)
     } catch (err) {
       console.log(err)
     }
   }
-  
+
   const fetchPortfolioCoinData = async () => {
     try {
-      const res: any = await API.graphql(graphqlOperation(listPortfolioCoins, { 
-        filter: {
-          and: {
-            coinId: { eq: params.id },
-            userId: { eq: userId }
-          }
-        }
-      }))
+      const res: any = await API.graphql(
+        graphqlOperation(listPortfolioCoins, {
+          filter: {
+            and: {
+              coinId: { eq: params.id },
+              userId: { eq: userId },
+            },
+          },
+        })
+      )
       setPortfolioCoin(res.data.listPortfolioCoins.items[0])
     } catch (err) {
       console.log(err)
@@ -87,19 +91,23 @@ const CoinDetailsScreen = () => {
           </View>
         </View>
       </View>
-      {coin.priceHistoryString && <CoinPriceGraph priceHistory={coin.priceHistoryString} />}
+      {coin.priceHistory && <CoinPriceGraph priceHistory={coin.priceHistory} />}
       {portfolioCoin && (
         <View style={styles.row}>
           <Text style={styles.position}>Position</Text>
           <Text style={styles.position}>
-            {coin.symbol} {portfolioCoin.amount} (${portfolioCoin.amount * coin.currentPrice})
+            {coin.symbol} {portfolioCoin.amount.toFixed(3)} ($
+            {(portfolioCoin.amount * coin.currentPrice).toFixed(3)})
           </Text>
         </View>
       )}
       <View style={[styles.row, { marginTop: 'auto' }]}>
         <Pressable
           onPress={onSell}
-          style={[styles.button, { backgroundColor: '#FF0000', marginRight: 5 }]}
+          style={[
+            styles.button,
+            { backgroundColor: '#FF0000', marginRight: 5 },
+          ]}
         >
           <Text style={styles.buttonText}>Sell</Text>
         </Pressable>

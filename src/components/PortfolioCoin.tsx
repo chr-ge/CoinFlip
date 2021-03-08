@@ -32,9 +32,9 @@ const PortfolioCoin = ({
         <Text style={styles.symbol}>{symbol}</Text>
       </View>
       <View style={styles.valueContainer}>
-        <Text style={styles.valueUSD}>${amount * currentPrice}</Text>
+        <Text style={styles.valueUSD}>${(amount * currentPrice).toFixed(3)}</Text>
         <Text style={styles.amount}>
-          {symbol} {amount}
+          {symbol} {amount.toFixed(3)}
         </Text>
       </View>
     </Pressable>

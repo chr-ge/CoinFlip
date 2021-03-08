@@ -7,16 +7,16 @@ interface ICoinPriceGraphProps {
 }
 
 const CoinPriceGraph = ({ priceHistory }: ICoinPriceGraphProps) => {
-    const data = JSON.parse(priceHistory)
-  
-    return (
+  const data = JSON.parse(priceHistory)
+
+  return (
     <View>
       <LineChart
         data={{
           labels: ['-7d', '-6d', '-5d', '-4d', '-3d', '-2d', '-1d', 'now'],
           datasets: [
             {
-              data
+              data,
             },
           ],
         }}
@@ -34,13 +34,13 @@ const CoinPriceGraph = ({ priceHistory }: ICoinPriceGraphProps) => {
             borderRadius: 16,
           },
           propsForDots: {
-            r: '3',
-            strokeWidth: '2',
+            r: '0',
+            strokeWidth: '1',
             stroke: '#56DCBA',
           },
         }}
         style={{
-          marginVertical: 8,
+          marginVertical: 28,
           borderRadius: 16,
         }}
       />
