@@ -28,7 +28,7 @@
         },
         "FetchCoinPrices": {
           "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
-          "s3Key": "amplify-builds/FetchCoinPrices-59545849344135556875-build.zip"
+          "s3Key": "amplify-builds/FetchCoinPrices-746e714f616667325874-build.zip"
         }
       }
     }

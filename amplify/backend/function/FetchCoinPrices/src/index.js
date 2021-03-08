@@ -4,7 +4,7 @@ const { DynamoDB } = require('aws-sdk')
 const ddb = new DynamoDB()
 
 const URL =
-  'https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&ids=bitcoin%2Cethereum%2Ctether%2Cmonero%2Cdogecoin%2Clitecoin%2Cbinancecoin&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
+  'https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&ids=bitcoin%2Cethereum%2Ctether%2Cmonero%2Cdogecoin%2Clitecoin%2Cbinancecoin%2Cpolkadot%2Cstellar%2Ccrypto-com-chain%2Ccosmos%2Ciota&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
 
 const getCoinData = () => {
   return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
     image: { S: item.image },
     name: { S: item.name },
     priceHistory: { S: JSON.stringify(item.sparkline_in_7d.price) },
-    symbol: { S: item.symbol },
+    symbol: { S: item.symbol.toUpperCase() },
     valueChange1H: {
       S: item.price_change_percentage_1h_in_currency.toString(),
     },
