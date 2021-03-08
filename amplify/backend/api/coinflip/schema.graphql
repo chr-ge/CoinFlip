@@ -4,13 +4,14 @@ type User @model(mutations: null) {
   name: String
   image: String
   networth: Float!
-  
-  portfolioCoins: [PortfolioCoin!] @connection(keyName: "byUser", fields: ["id"])
+
+  portfolioCoins: [PortfolioCoin!]
+    @connection(keyName: "byUser", fields: ["id"])
 }
 
-type PortfolioCoin 
-@model(mutations: null) 
-@key(name: "byUser", fields: ["userId"]) {
+type PortfolioCoin
+  @model(mutations: null)
+  @key(name: "byUser", fields: ["userId"]) {
   id: ID!
   amount: Float!
 
@@ -32,4 +33,14 @@ type Coin @model(mutations: null) {
   valueChange1D: Float!
   valueChange7D: Float!
   priceHistory: String
+}
+
+type Mutation {
+  exchangeCoins(
+    coinId: ID!
+    isBuy: Boolean!
+    amount: Float!
+    usdPortfolioCoinId: ID
+    coinPortfolioCoinId: ID
+  ): Boolean! @function(name: "ExchangeCoins-${env}")
 }

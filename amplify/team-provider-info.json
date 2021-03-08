@@ -20,7 +20,11 @@
       "function": {
         "coinflip45a60d1fPostConfirmation": {
           "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
-          "s3Key": "amplify-builds/coinflip45a60d1fPostConfirmation-5a78794c74456c364668-build.zip"
+          "s3Key": "amplify-builds/coinflip45a60d1fPostConfirmation-33782b2b6f75704e3033-build.zip"
+        },
+        "ExchangeCoins": {
+          "deploymentBucketName": "amplify-coinflip-dev-111200-deployment",
+          "s3Key": "amplify-builds/ExchangeCoins-354c78485773504c3364-build.zip"
         }
       }
     }
