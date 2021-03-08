@@ -56,11 +56,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: '#3F22AB'
+    backgroundColor: '#3F22AB',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  loading: {
+    marginLeft: 8,
   },
 })
 
